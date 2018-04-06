@@ -8,9 +8,12 @@
 <title>Replication: Text Analysis with R for Students of Literature • quanteda</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../../../pkgdown.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../../pkgdown.css" rel="stylesheet">
 <script src="../../../jquery.sticky-kit.min.js"></script><script src="../../../pkgdown.js"></script><link href="../../../extra.css" rel="stylesheet">
-<script src="../../../extra.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<script src="../../../extra.js"></script><meta property="og:title" content="Replication: Text Analysis with R for Students of Literature">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--><!-- Google analytics --><script>
@@ -22,10 +25,10 @@
   ga('create', 'UA-144616-24', 'auto');
   ga('send', 'pageview');
 
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -34,8 +37,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../../../index.html">Quanteda</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../../../index.html">quanteda</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li class="dropdown">
@@ -104,9 +111,6 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../../../articles/design.html">Design</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -116,7 +120,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -125,16 +135,19 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Replication: Text Analysis with R for Students of Literature</h1>
                         <h4 class="author">Kenneth Benoit, Stefan Müller, and Paul Nulty</h4>
             
-          </div>
+      
+      
+      <div class="hidden name"><code>digital-humanities.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <p>In this vignette we show how the <strong>quanteda</strong> package can be used to replicate the analysis from Matthew Jockers’ book <a href="http://doi.org/10.1007/978-3-319-03164-4"><em>Text Analysis with R for Students of Literature</em></a> (London: Springer, 2014). Most of the Jockers book consists of loading, transforming, and analyzing quantities derived from text and data from text. Because <strong>quanteda</strong> has built in most of the code to perform these data transformations and analyses, it makes it possible to replicate the results from the book with far less code. Throughout this vignette, we name objects based on Jockers’ book, but follow the <strong>quanteda</strong> <a href="https://github.com/quanetda/quanteda/wiki/Style-guide">style guide</a>.</p>
 <p>In what follows, each section corresponds to the respective chapter in the book.</p>
 <div id="r-basics" class="section level1">
@@ -337,13 +350,13 @@ moby_dfm_pct[, <span class="st">"the"</span>]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sorted_moby_rel_freqs_t[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>], <span class="dt">type =</span> <span class="st">"b"</span>,
      <span class="dt">xlab =</span> <span class="st">"Top Ten Words"</span>, <span class="dt">ylab =</span> <span class="st">"Percentage of Full Text"</span>, <span class="dt">xaxt =</span> <span class="st">"n"</span>)
 <span class="kw">axis</span>(<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">labels =</span> <span class="kw">names</span>(sorted_moby_rel_freqs_t[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]))</code></pre></div>
-<p><img src="digital-humanities_files/figure-html/unnamed-chunk-22-1.png" width="672"></p>
+<p><img src="digital-humanities_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 <p>Plotting the most frequent terms using <strong>ggplot2</strong>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../../reference/textstat_frequency.html">textstat_frequency</a></span>(moby_dfm_pct, <span class="dt">n =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> <span class="kw">reorder</span>(feature, <span class="op">-</span>rank), <span class="dt">y =</span> frequency)) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_bar">geom_bar</a></span>(<span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/coord_flip">coord_flip</a></span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">x =</span> <span class="st">""</span>, <span class="dt">y =</span> <span class="st">"Term Frequency as a Percentage"</span>)</code></pre></div>
-<p><img src="digital-humanities_files/figure-html/unnamed-chunk-23-1.png" width="672"></p>
+<p><img src="digital-humanities_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 </div>
 </div>
 <div id="token-distribution-analysis" class="section level1">
@@ -393,8 +406,8 @@ chap_positions_v &lt;-<span class="st"> </span><span class="kw"><a href="../../.
 ##   mobydick.9  1260   4284       166      CHAPTER 9. The Sermon.\n
 ##  mobydick.10   658   1804        66 CHAPTER 10. A Bosom Friend.\n
 ## 
-## Source: /home/kohei/packages/quanteda/docs/articles/pkgdown/replication/* on x86_64 by kohei
-## Created: Wed Apr  4 09:52:04 2018
+## Source: /home/kohei/packages/quanteda/vignettes/pkgdown/replication/* on x86_64 by kohei
+## Created: Fri Apr  6 12:42:52 2018
 ## Notes: corpus_segment.corpus(., pattern = "CHAPTER\\s\\d+.*\\n", valuetype = "regex")</code></pre>
 <p>The titles are automatically extracted into the <code>pattern</code> document variables, and the text of each chapter becomes the text of each new document unit. To tidy this up, we can remove the trailing <code>\n</code> character, using <code><a href="http://www.rdocumentation.org/packages/stringi/topics/stri_trim">stri_trim_right()</a></code>, since the <code>\n</code> is a member of the “whitespace” group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../../reference/docvars.html">docvars</a></span>(chapters_corp, <span class="st">"pattern"</span>) &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringi/topics/stri_trim">stri_trim_right</a></span>(<span class="kw"><a href="../../../reference/docvars.html">docvars</a></span>(chapters_corp, <span class="st">"pattern"</span>))
@@ -406,8 +419,8 @@ chap_positions_v &lt;-<span class="st"> </span><span class="kw"><a href="../../.
 ##  mobydick.2   651   1700        60  CHAPTER 2. The Carpet-Bag.
 ##  mobydick.3  1744   6943       264 CHAPTER 3. The Spouter-Inn.
 ## 
-## Source: /home/kohei/packages/quanteda/docs/articles/pkgdown/replication/* on x86_64 by kohei
-## Created: Wed Apr  4 09:52:04 2018
+## Source: /home/kohei/packages/quanteda/vignettes/pkgdown/replication/* on x86_64 by kohei
+## Created: Fri Apr  6 12:42:52 2018
 ## Notes: corpus_segment.corpus(., pattern = "CHAPTER\\s\\d+.*\\n", valuetype = "regex")</code></pre>
 <p>For better reference, let’s also rename the document labels with these chapter headings:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../../reference/docnames.html">docnames</a></span>(chapters_corp) &lt;-<span class="st"> </span><span class="kw"><a href="../../../reference/docvars.html">docvars</a></span>(chapters_corp, <span class="st">"pattern"</span>)</code></pre></div>
@@ -678,7 +691,7 @@ pres_cluster<span class="op">$</span>labels &lt;-<span class="st"> </span><span 
 
 <span class="co"># plot as a dendrogram</span>
 <span class="kw">plot</span>(pres_cluster, <span class="dt">xlab =</span> <span class="st">""</span>, <span class="dt">sub =</span> <span class="st">""</span>, <span class="dt">main =</span> <span class="st">"Euclidean Distance on Normalized Token Frequency"</span>)</code></pre></div>
-<p><img src="digital-humanities_files/figure-html/unnamed-chunk-46-1.png" width="672"></p>
+<p><img src="digital-humanities_files/figure-html/unnamed-chunk-46-1.png" width="700"></p>
 </div>
 <div id="classification" class="section level1">
 <h1 class="hasAnchor">
@@ -698,31 +711,30 @@ LDA_fit_<span class="dv">20</span> &lt;-<span class="st"> </span><span class="kw
 
 <span class="co"># get top five terms per topic</span>
 <span class="kw"><a href="http://www.rdocumentation.org/packages/topicmodels/topics/get">get_terms</a></span>(LDA_fit_<span class="dv">20</span>, <span class="dv">5</span>)</code></pre></div>
-<pre><code>##      Topic 1     Topic 2    Topic 3    Topic 4       Topic 5       
-## [1,] "care"      "fianna"   "hospital" "development" "society"     
-## [2,] "welfare"   "national" "benefit"  "support"     "enterprising"
-## [3,] "allowance" "irish"    "schools"  "investment"  "equal"       
-## [4,] "per"       "ted"      "full"     "back"        "sense"       
-## [5,] "million"   "poor"     "families" "million"     "nation"      
-##      Topic 6        Topic 7     Topic 8       Topic 9      Topic 10   
-## [1,] "welfare"      "failed"    "kind"        "million"    "taoiseach"
-## [2,] "system"       "strategy"  "imagination" "welfare"    "fine"     
-## [3,] "stimulus"     "needed"    "policies"    "support"    "gael"     
-## [4,] "fine"         "ministers" "wit"         "confidence" "may"      
-## [5,] "government's" "system"    "create"      "create"     "irish"    
-##      Topic 11   Topic 12  Topic 13     Topic 14  Topic 15   Topic 16   
-## [1,] "million"  "benefit" "welfare"    "levy"    "system"   "taoiseach"
-## [2,] "measures" "day"     "fine"       "million" "fianna"   "employees"
-## [3,] "spending" "child"   "workers"    "carbon"  "taxation" "rate"     
-## [4,] "scheme"   "bank"    "back"       "change"  "welfare"  "referred" 
-## [5,] "welfare"  "today"   "investment" "welfare" "fáil"     "debate"   
-##      Topic 17      Topic 18   Topic 19   Topic 20
-## [1,] "alternative" "fáil"     "child"    "fianna"
-## [2,] "breaks"      "fianna"   "welfare"  "fáil"  
-## [3,] "adjustment"  "support"  "benefit"  "side"  
-## [4,] "matter"      "irish"    "measures" "level" 
-## [5,] "wealth"      "measures" "like"     "third"</code></pre>
-</div>
+<pre><code>##      Topic 1     Topic 2    Topic 3       Topic 4        Topic 5    
+## [1,] "failed"    "welfare"  "alternative" "citizenship"  "taoiseach"
+## [2,] "strategy"  "stimulus" "wealth"      "yesterday"    "employees"
+## [3,] "needed"    "system"   "matter"      "thinking"     "rate"     
+## [4,] "ministers" "per"      "breaks"      "alternatives" "referred" 
+## [5,] "system"    "sinn"     "speak"       "adjustment"   "debate"   
+##      Topic 6     Topic 7     Topic 8      Topic 9    Topic 10      
+## [1,] "taoiseach" "measures"  "million"    "fianna"   "society"     
+## [2,] "fine"      "deficit"   "welfare"    "fáil"     "enterprising"
+## [3,] "gael"      "increases" "support"    "national" "sense"       
+## [4,] "may"       "benefit"   "investment" "irish"    "equal"       
+## [5,] "irish"     "child"     "back"       "support"  "nation"      
+##      Topic 11 Topic 12  Topic 13        Topic 14   Topic 15  Topic 16 
+## [1,] "fáil"   "child"   "measures"      "review"   "welfare" "levy"   
+## [2,] "fianna" "benefit" "help"          "million"  "benefit" "million"
+## [3,] "side"   "day"     "international" "scheme"   "million" "carbon" 
+## [4,] "level"  "society" "million"       "spending" "just"    "change" 
+## [5,] "third"  "per"     "adjustment"    "welfare"  "child"   "welfare"
+##      Topic 17    Topic 18    Topic 19      Topic 20   
+## [1,] "care"      "welfare"   "kind"        "system"   
+## [2,] "welfare"   "deficit"   "imagination" "taxation" 
+## [3,] "per"       "recession" "policies"    "high"     
+## [4,] "allowance" "child"     "wit"         "much"     
+## [5,] "hit"       "worst"     "create"      "proposals"</code></pre>
 </div>
   </div>
 
@@ -786,11 +798,21 @@ LDA_fit_<span class="dv">20</span> &lt;-<span class="st"> </span><span class="kw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
 </div>
 
-  </body>
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    apiKey: '9b4ef7fd791dc6075154d3ebd7b12acf',
+    indexName: 'quanteda',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+</body>
 </html>

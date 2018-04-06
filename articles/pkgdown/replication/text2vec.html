@@ -8,9 +8,12 @@
 <title>Replication: word embedding (gloVe/word2vec) • quanteda</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../../../pkgdown.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../../pkgdown.css" rel="stylesheet">
 <script src="../../../jquery.sticky-kit.min.js"></script><script src="../../../pkgdown.js"></script><link href="../../../extra.css" rel="stylesheet">
-<script src="../../../extra.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<script src="../../../extra.js"></script><meta property="og:title" content="Replication: word embedding (gloVe/word2vec)">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--><!-- Google analytics --><script>
@@ -22,10 +25,10 @@
   ga('create', 'UA-144616-24', 'auto');
   ga('send', 'pageview');
 
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -34,8 +37,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../../../index.html">Quanteda</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../../../index.html">quanteda</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li class="dropdown">
@@ -104,9 +111,6 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../../../articles/design.html">Design</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -116,7 +120,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -125,16 +135,19 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Replication: word embedding (gloVe/word2vec)</h1>
                         <h4 class="author">Kenneth Benoit, Haiyan Wang and Kohei Watanabe</h4>
             
-          </div>
+      
+      
+      <div class="hidden name"><code>text2vec.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(quanteda)</code></pre></div>
 <p>This is intended to show how <strong>quanteda</strong> can be used with the <a href="http://text2vec.org"><strong>text2vec</strong></a> package in order to replicate its <a href="http://text2vec.org/glove.html">gloVe example</a>.</p>
 <div id="download-the-corpus" class="section level2">
@@ -156,7 +169,7 @@ feats &lt;-<span class="st"> </span><span class="kw"><a href="../../../reference
 <pre><code>##    ... found 1 document, 253,853 features</code></pre>
 <pre><code>##    ... created a 1 x 253,853 sparse dfm
 ##    ... complete. 
-## Elapsed time: 1.01 seconds.</code></pre>
+## Elapsed time: 0.937 seconds.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># leave the pads so that non-adjacent words will not become adjacent</span>
 wiki_toks &lt;-<span class="st"> </span><span class="kw"><a href="../../../reference/tokens_select.html">tokens_select</a></span>(wiki_toks, feats, <span class="dt">padding =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
@@ -174,26 +187,26 @@ wiki_toks &lt;-<span class="st"> </span><span class="kw"><a href="../../../refer
 <p>GloVe encodes the ratios of word-word co-occurrence probabilities, which is thought to represent some crude form of meaning associated with the abstract concept of the word, as vector difference. The training objective of GloVe is to learn word vectors such that their dot product equals the logarithm of the words’ probability of co-occurrence.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glove &lt;-<span class="st"> </span>GlobalVectors<span class="op">$</span><span class="kw">new</span>(<span class="dt">word_vectors_size =</span> <span class="dv">50</span>, <span class="dt">vocabulary =</span> <span class="kw"><a href="../../../reference/featnames.html">featnames</a></span>(wiki_fcm), <span class="dt">x_max =</span> <span class="dv">10</span>)
 wiki_main &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/text2vec/topics/reexports">fit_transform</a></span>(wiki_fcm, glove, <span class="dt">n_iter =</span> <span class="dv">20</span>)</code></pre></div>
-<pre><code>## INFO [2017-12-18 17:37:01] 2017-12-18 17:37:01 - epoch 1, expected cost 0.0843
-## INFO [2017-12-18 17:37:06] 2017-12-18 17:37:06 - epoch 2, expected cost 0.0614
-## INFO [2017-12-18 17:37:11] 2017-12-18 17:37:11 - epoch 3, expected cost 0.0544
-## INFO [2017-12-18 17:37:16] 2017-12-18 17:37:16 - epoch 4, expected cost 0.0503
-## INFO [2017-12-18 17:37:21] 2017-12-18 17:37:21 - epoch 5, expected cost 0.0478
-## INFO [2017-12-18 17:37:26] 2017-12-18 17:37:26 - epoch 6, expected cost 0.0460
-## INFO [2017-12-18 17:37:31] 2017-12-18 17:37:31 - epoch 7, expected cost 0.0446
-## INFO [2017-12-18 17:37:36] 2017-12-18 17:37:36 - epoch 8, expected cost 0.0435
-## INFO [2017-12-18 17:37:41] 2017-12-18 17:37:41 - epoch 9, expected cost 0.0427
-## INFO [2017-12-18 17:37:46] 2017-12-18 17:37:46 - epoch 10, expected cost 0.0419
-## INFO [2017-12-18 17:37:51] 2017-12-18 17:37:51 - epoch 11, expected cost 0.0413
-## INFO [2017-12-18 17:37:56] 2017-12-18 17:37:56 - epoch 12, expected cost 0.0408
-## INFO [2017-12-18 17:38:01] 2017-12-18 17:38:01 - epoch 13, expected cost 0.0403
-## INFO [2017-12-18 17:38:06] 2017-12-18 17:38:06 - epoch 14, expected cost 0.0399
-## INFO [2017-12-18 17:38:11] 2017-12-18 17:38:11 - epoch 15, expected cost 0.0395
-## INFO [2017-12-18 17:38:16] 2017-12-18 17:38:16 - epoch 16, expected cost 0.0392
-## INFO [2017-12-18 17:38:21] 2017-12-18 17:38:21 - epoch 17, expected cost 0.0389
-## INFO [2017-12-18 17:38:26] 2017-12-18 17:38:26 - epoch 18, expected cost 0.0386
-## INFO [2017-12-18 17:38:31] 2017-12-18 17:38:31 - epoch 19, expected cost 0.0384
-## INFO [2017-12-18 17:38:36] 2017-12-18 17:38:36 - epoch 20, expected cost 0.0381</code></pre>
+<pre><code>## INFO [2018-04-06 11:41:10] 2018-04-06 11:41:10 - epoch 1, expected cost 0.0828
+## INFO [2018-04-06 11:41:25] 2018-04-06 11:41:25 - epoch 2, expected cost 0.0615
+## INFO [2018-04-06 11:41:39] 2018-04-06 11:41:39 - epoch 3, expected cost 0.0541
+## INFO [2018-04-06 11:41:53] 2018-04-06 11:41:53 - epoch 4, expected cost 0.0501
+## INFO [2018-04-06 11:42:08] 2018-04-06 11:42:08 - epoch 5, expected cost 0.0475
+## INFO [2018-04-06 11:42:22] 2018-04-06 11:42:22 - epoch 6, expected cost 0.0458
+## INFO [2018-04-06 11:42:36] 2018-04-06 11:42:36 - epoch 7, expected cost 0.0444
+## INFO [2018-04-06 11:42:51] 2018-04-06 11:42:51 - epoch 8, expected cost 0.0434
+## INFO [2018-04-06 11:43:05] 2018-04-06 11:43:05 - epoch 9, expected cost 0.0425
+## INFO [2018-04-06 11:43:20] 2018-04-06 11:43:20 - epoch 10, expected cost 0.0418
+## INFO [2018-04-06 11:43:34] 2018-04-06 11:43:34 - epoch 11, expected cost 0.0412
+## INFO [2018-04-06 11:43:48] 2018-04-06 11:43:48 - epoch 12, expected cost 0.0406
+## INFO [2018-04-06 11:44:03] 2018-04-06 11:44:03 - epoch 13, expected cost 0.0402
+## INFO [2018-04-06 11:44:17] 2018-04-06 11:44:17 - epoch 14, expected cost 0.0398
+## INFO [2018-04-06 11:44:31] 2018-04-06 11:44:31 - epoch 15, expected cost 0.0394
+## INFO [2018-04-06 11:44:46] 2018-04-06 11:44:46 - epoch 16, expected cost 0.0391
+## INFO [2018-04-06 11:45:00] 2018-04-06 11:45:00 - epoch 17, expected cost 0.0388
+## INFO [2018-04-06 11:45:14] 2018-04-06 11:45:14 - epoch 18, expected cost 0.0386
+## INFO [2018-04-06 11:45:29] 2018-04-06 11:45:29 - epoch 19, expected cost 0.0383
+## INFO [2018-04-06 11:45:43] 2018-04-06 11:45:43 - epoch 20, expected cost 0.0381</code></pre>
 </div>
 <div id="averaging-learned-word-vectors" class="section level2">
 <h2 class="hasAnchor">
@@ -217,8 +230,8 @@ wiki_vector_dfm &lt;-<span class="st"> </span><span class="kw"><a href="../../..
 cos_sim &lt;-<span class="st">  </span><span class="kw"><a href="../../../reference/textstat_simil.html">textstat_simil</a></span>(wiki_vector_dfm, <span class="st">"new_berlin"</span>, 
                            <span class="dt">margin =</span> <span class="st">"documents"</span>, <span class="dt">method =</span> <span class="st">"cosine"</span>)
 <span class="kw">head</span>(<span class="kw">sort</span>(cos_sim[,<span class="dv">1</span>], <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), <span class="dv">5</span>)</code></pre></div>
-<pre><code>## new_berlin      paris     berlin     munich    germany 
-##  1.0000000  0.7687160  0.7206902  0.7009724  0.6550815</code></pre>
+<pre><code>## new_berlin     berlin      paris     munich     vienna 
+##  1.0000000  0.7821430  0.7519089  0.7057977  0.7018331</code></pre>
 <p>Here is another example for <code>london = paris - france + uk + england</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_london &lt;-<span class="st">  </span>wiki_vectors[<span class="st">"paris"</span>, ] <span class="op">-</span><span class="st"> </span>
 <span class="st">    </span>wiki_vectors[<span class="st">"france"</span>, ] <span class="op">+</span><span class="st"> </span>
@@ -229,9 +242,8 @@ wiki_vector_dfm &lt;-<span class="st"> </span><span class="kw"><a href="../../..
 cos_sim &lt;-<span class="st">  </span><span class="kw"><a href="../../../reference/textstat_simil.html">textstat_simil</a></span>(wiki_vector_dfm, <span class="st">"new_london"</span>, 
                            <span class="dt">margin =</span> <span class="st">"documents"</span>, <span class="dt">method=</span> <span class="st">"cosine"</span>)
 <span class="kw">head</span>(<span class="kw">sort</span>(cos_sim[,<span class="dv">1</span>], <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), <span class="dv">5</span>)</code></pre></div>
-<pre><code>## new_london       york     london      press    england 
-##  1.0000000  0.7821334  0.7789820  0.7310818  0.7303934</code></pre>
-</div>
+<pre><code>## new_london     london    england         uk       club 
+##  1.0000000  0.7688194  0.7665497  0.7639508  0.7341734</code></pre>
 </div>
   </div>
 
@@ -258,11 +270,21 @@ cos_sim &lt;-<span class="st">  </span><span class="kw"><a href="../../../refere
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
 </div>
 
-  </body>
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    apiKey: '9b4ef7fd791dc6075154d3ebd7b12acf',
+    indexName: 'quanteda',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+</body>
 </html>

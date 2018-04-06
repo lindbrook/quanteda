@@ -1,0 +1,23 @@
+pandoc: 1.19.2.1
+pkgdown: 0.1.0.9000
+pkgdown_sha: 4e194be97890ace7225932cbc3b4380085aedcf8
+articles:
+  design: design.html
+  comparison: pkgdown/comparison.html
+  chinese: pkgdown/examples/chinese.html
+  japanese_speech_ja: pkgdown/examples/japanese_speech_ja.html
+  japanese_twitter_ja: pkgdown/examples/japanese_twitter_ja.html
+  lsa: pkgdown/examples/lsa.html
+  phrase: pkgdown/examples/phrase.html
+  plotting: pkgdown/examples/plotting.html
+  quickstart_cn: pkgdown/examples/quickstart_cn.html
+  quickstart_ja: pkgdown/examples/quickstart_ja.html
+  twitter: pkgdown/examples/twitter.html
+  quickstart: pkgdown/quickstart.html
+  digital-humanities: pkgdown/replication/digital-humanities.html
+  qss: pkgdown/replication/qss.html
+  text2vec: pkgdown/replication/text2vec.html
+urls:
+  reference: http://docs.quanteda.io/reference
+  article: http://docs.quanteda.io/articles
+

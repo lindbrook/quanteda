@@ -8,9 +8,12 @@
 <title>Example: Social media analysis (Twitter) • quanteda</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../../../pkgdown.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../../pkgdown.css" rel="stylesheet">
 <script src="../../../jquery.sticky-kit.min.js"></script><script src="../../../pkgdown.js"></script><link href="../../../extra.css" rel="stylesheet">
-<script src="../../../extra.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<script src="../../../extra.js"></script><meta property="og:title" content="Example: Social media analysis (Twitter)">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--><!-- Google analytics --><script>
@@ -22,10 +25,10 @@
   ga('create', 'UA-144616-24', 'auto');
   ga('send', 'pageview');
 
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -34,8 +37,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../../../index.html">Quanteda</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../../../index.html">quanteda</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li class="dropdown">
@@ -104,9 +111,6 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../../../articles/design.html">Design</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -116,7 +120,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -125,16 +135,19 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Example: Social media analysis (Twitter)</h1>
                         <h4 class="author">Kohei Watanabe</h4>
             
-          </div>
+      
+      
+      <div class="hidden name"><code>twitter.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <p>Using <strong>quanteda</strong>’s <code><a href="../../../reference/fcm.html">fcm()</a></code> and <code><a href="../../../reference/textplot_network.html">textplot_network()</a></code>, you can perform visual analysis of social media posts in terms of cooccurances of hashtags or usernames in a few steps. The dataset for this example contains only 10,000 Twitter posts, but you can easily analyze more one million posts on your laptop computer.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(quanteda)</code></pre></div>
 <div id="load-sample-data" class="section level2">
@@ -186,7 +199,7 @@ toptag &lt;-<span class="st"> </span><span class="kw">names</span>(<span class="
 ##   #espanyaensroba               0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">topgat_fcm &lt;-<span class="st"> </span><span class="kw"><a href="../../../reference/dfm_select.html">fcm_select</a></span>(tag_fcm, toptag)
 <span class="kw"><a href="../../../reference/textplot_network.html">textplot_network</a></span>(topgat_fcm, <span class="dt">min_freq =</span> <span class="fl">0.1</span>, <span class="dt">edge_alpha =</span> <span class="fl">0.8</span>, <span class="dt">edge_size =</span> <span class="dv">5</span>)</code></pre></div>
-<p><img src="twitter_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p><img src="twitter_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 </div>
 <div id="usernames" class="section level1">
@@ -226,8 +239,7 @@ topuser &lt;-<span class="st"> </span><span class="kw">names</span>(<span class=
 ##   @ernesturtasun               0              0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">user_fcm &lt;-<span class="st"> </span><span class="kw"><a href="../../../reference/dfm_select.html">fcm_select</a></span>(user_fcm, topuser)
 <span class="kw"><a href="../../../reference/textplot_network.html">textplot_network</a></span>(user_fcm, <span class="dt">min_freq =</span> <span class="fl">0.1</span>, <span class="dt">edge_color =</span> <span class="st">'orange'</span>, <span class="dt">edge_alpha =</span> <span class="fl">0.8</span>, <span class="dt">edge_size =</span> <span class="dv">5</span>)</code></pre></div>
-<p><img src="twitter_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
-</div>
+<p><img src="twitter_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 </div>
   </div>
@@ -263,11 +275,21 @@ topuser &lt;-<span class="st"> </span><span class="kw">names</span>(<span class=
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
 </div>
 
-  </body>
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    apiKey: '9b4ef7fd791dc6075154d3ebd7b12acf',
+    indexName: 'quanteda',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+</body>
 </html>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • quanteda</title>
+<title>Changelog • quanteda</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,9 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
+<meta property="og:title" content="Changelog" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -46,6 +51,11 @@
 
 </script>
 
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -59,8 +69,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Quanteda</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">quanteda</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
@@ -129,9 +143,6 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../articles/design.html">Design</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -142,6 +153,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -149,17 +167,153 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="contents">
+    <div id="quanteda-0-9-8" class="section level1">
+<h1 class="page-header">
+<a href="#quanteda-0-9-8" class="anchor"></a>quanteda 0.9.8<small> 2016-07-28 </small>
+</h1>
+<div id="new-features-10" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-10" class="anchor"></a>New Features</h2>
+<ul>
+<li>Improved the performance of <code>selectFeatures.tokenizedTexts()</code>.<br>
+</li>
+<li>Improved the performance of <code><a href="../reference/cbind.dfm.html">rbind.dfm()</a></code>.<br>
+</li>
+<li>Added support for different docvars when importing multiple files using <code>textfile()</code>. (#147)<br>
+</li>
+<li>Added support for comparison dispersion plots in <code>plot.kwic()</code>. (#146)<br>
+</li>
+<li>Added a corpus constructor method for kwic objects.<br>
+</li>
+<li>Substantially improved the performance of <code><a href="../reference/convert.html">convert(x, to = "stm")</a></code> for dfm export, including adding an argument for meta-data (docvars, in quanteda parlance). (#209)<br>
+</li>
+<li>Internal rewrite of <code>textfile()</code>, now supports more file types, more wildcard patterns, and is far more robust generally.<br>
+</li>
+<li>Add support for loading external dictionary formats:</li>
+<li>yoshikoder,</li>
+<li>lexicoder v2 and v3 (#228)</li>
+<li>Autodetect dictionary file format from file extension, so no longer require <code>format</code> keyword for loading dictionaries (#227)</li>
+<li>Improved compatibility with rOpenSci guidelines (#218):</li>
+<li>Use httr to get remote files</li>
+<li>Use <code>messages()</code> to display messages rather than <code>print</code> or <code>cat</code>
+</li>
+<li>Reorganise sections in README file<br>
+</li>
+<li>Added new <code>punctuation</code> argument to <code><a href="../reference/textstat_collocations.html">collocations()</a></code> to provide new options for handling collocations separated by punctuation characters (#220).</li>
+</ul>
+</div>
+<div id="bug-fixes-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>(0.9.8.7) Solved #267 in which <code><a href="../reference/fcm.html">fcm(x, tri = TRUE)</a></code> temporarily created a dense logical matrix.</li>
+<li>(0.9.8.7) Added feature co-occurence matrix functions (<code>fcm</code>).</li>
+<li>(0.9.8.5) Fixed an incompatibility in sequences.cpp with Solaris x86 (#257)</li>
+<li>(0.9.8.4) Fix bug in verbose output of dfm that causes misreporting of number of features (#250)</li>
+<li>(0.9.8.4) Fix a bug in <code>selectFeatures.dfm()</code> that ignored <code>case_insensitive = TRUE</code> settings (#251) correct the documentation for this function.</li>
+<li>(0.9.8.3) Fix a bug in <code><a href="../reference/tf.html">tf(x, scheme = "propmax")</a></code> that returned a wrong computation; correct the documentation for this function.</li>
+<li>(0.9.8.2) Fixed a bug in textfile() causing all texts to have the same name, for types using the “textField” argument (a single file containing multiple documents).<br>
+</li>
+<li>Fixed bug in <code>phrasetotoken()</code> where if pattern included a <code>+</code> for <code>valuetype = c("glob", "fixed")</code> it threw a regex error. #239<br>
+</li>
+<li>Fixed bug in <code>textfile()</code> where source is a remote .zip set. (#172)<br>
+</li>
+<li>Fixed bug in <code>wordstem.dfm()</code> that caused an error if supplied a dfm with a feature whose total frequency count was zero, or with a feature whose total docfreq was zero. Fixes #181.<br>
+</li>
+<li>Fix #214 “mysterious stemmed token” bug in <code>wordstem.dfm()</code>, introduced in fixing #181.<br>
+</li>
+<li>Fixed previously non-functional <code>toLower =</code> argument in <code>dfm.tokenizedTexts()</code>.</li>
+<li>Fixed some errors in the computation of a few readability formulas (#215).</li>
+<li>Added filenames names to text vectors returned by <code>textfile</code> (#221).</li>
+<li>
+<code><a href="../reference/dictionary.html">dictionary()</a></code> now works correctly when reading LIWC dictionaries where all terms belong to one key (#229).</li>
+<li>`convert(x, to = “stm”) now indexes the dfm components from 1, not 0 (#222).</li>
+<li>Remove temporary stemmed token (#214).</li>
+<li>Fixed bug in textmodel_NB() for non-“uniform” priors (#241)</li>
+</ul>
+</div>
+<div id="changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes" class="anchor"></a>Changes</h2>
+<ul>
+<li>Added <code>warn = FALSE</code> to the <code>readLines()</code> calls in <code>textfile()</code>, so that no warnings are issued when files are read that are missing a final EOL or that contain embedded nuls.</li>
+<li>
+<code>trim()</code> now prints an output message even when no features are removed (#223)</li>
+<li>We now skip some platform-dependent tests on CRAN, travis-ci and Windows.</li>
+</ul>
+</div>
+</div>
+    <div id="quanteda-0-9-6" class="section level1">
+<h1 class="page-header">
+<a href="#quanteda-0-9-6" class="anchor"></a>quanteda 0.9.6<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>Improved Naive Bayes model and prediction, <code>textmodel(x, y, method = "NB")</code>, now works correctly on k &gt; 2.</p></li>
+<li><p>Improved tag handling for segment(x, what = “tags”)</p></li>
+<li><p>Added valuetype argument to segment() methods, which allows faster and more robust segmentation on large texts.</p></li>
+<li><p>corpus() now converts all hyphen-like characters to simple hyphen</p></li>
+<li><p>segment.corpus() now preserves all existing docvars.</p></li>
+<li><p>corpus documentation now removes the description of the corpus object’s structure since too many users were accessing these internal elements directly, which is strongly discouraged, as we are likely to change the corpus internals (soon and often). Repeat after me: “encapsulation”.</p></li>
+<li><p>Improve robustness of <code>corpus.VCorpus()</code> for constructing a corpus from a tm Corpus object.</p></li>
+<li><p>Add UTF-8 preservation to ngrams.cpp.</p></li>
+<li><p>Fix encoding issues for textfile(), improve functionality.</p></li>
+<li><p>Added two data objects: Moby Dick is now available as <code>mobydickText</code>, without needing to access a zipped text file; <code>encodedTextFiles.zip</code> is now a zipped archive of different encodings of (mainly) the UN Declaration of Human Rights, for testing conversions from 8-bit encodings in different (non-Roman) languages.</p></li>
+<li><p>phrasetotoken() now has a method correctly defined for corpus class objects.</p></li>
+<li><p>lexdiv() now works just like readability(), and is faster (based on data.table) and the code is simpler.</p></li>
+<li><p>removed quanteda::df() as a synonym for docfreq(), as this conflicted with stats::df().</p></li>
+<li><p>added version information when package is attached.</p></li>
+<li><p>improved rbind() and cbind() methods for dfm. Both now take any length sequence of dfms and perform better type checking.<br>
+rbind.dfm() also knits together dfms with different features, which can be useful for information and retrieval purposes or machine learning.</p></li>
+<li><p>selectFeatures(x, anyDfm) (where the second argument is a dfm) now works with a selection = “remove” option.</p></li>
+<li><p>tokenize.character adds a removeURL option.</p></li>
+<li><p>added a corpus method for data.frame objects, so that a corpus can be constructed directly from a data.frame. Requires the addition of a <code>textField</code> argument (similar to textfile).</p></li>
+<li><p>added <code>compress.dfm()</code> to combine identically named columns or rows. #123</p></li>
+<li><p>Much better <code>phrasetotoken()</code>, with additional methods for all combinations of corpus/character v. dictionary/character/collocations.</p></li>
+<li><p>Added a<code>weight(x, type, ...</code>) signature where the second argument can be a named numeric vector of weights, not just a label for a type of weight. Thanks <a href="http://stackoverflow.com/questions/36815926/assigning-weights-to-different-features-in-r/36823475#36823475" class="uri">http://stackoverflow.com/questions/36815926/assigning-weights-to-different-features-in-r/36823475#36823475</a>.</p></li>
+<li><p><code>as.data.frame</code> for dfms now passes <code>...</code> to <code>as.data.frame.matrix</code>.</p></li>
+<li><p>Fixed bug in <code>predict.fitted_textmodel_NB()</code> that caused a failure with k &gt; 2 classes (#129)</p></li>
+<li><p>Improved <code>dfm.tokenizedTexts()</code> performance by taking care of zero-token documents more efficiently.</p></li>
+<li><p><code><a href="../reference/dictionary.html">dictionary(file = "liwc_formatted_dict.dic", format = "LIWC")</a></code> now handles poorly formatted dictionary files better, such as the Moral Foundations Dictionary in the examples for <code><a href="../reference/dictionary.html">?dictionary</a></code>.</p></li>
+<li><p>added <code>as.tokenizedTexts</code> to coerce any list of characters to a tokenizedTexts object.</p></li>
+</ul>
+<div id="bug-fixes-0-9-6-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-0-9-6-3" class="anchor"></a>Bug fixes &gt;= 0.9.6-3</h2>
+<ul>
+<li><p>Fix bug in phrasetotoken, signature ‘corpus,ANY’ that was causing an infinite loop.</p></li>
+<li><p>Fixed bug introduced in commit b88287f (0.9.5-26) that caused a failure in dfm() with empty (zero-token) documents. Also fixes Issue #168.</p></li>
+<li><p>Fixed bug that caused dfm() to break if no features or only one feature was found.</p></li>
+<li><p>Fixed bug in predict.fitted_textmodel_NB() that caused a failure with k &gt; 2 classes (#129)</p></li>
+</ul>
+</div>
+<div id="bug-fixes-4" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li><p>Fixed a false-alarm warning message in textmodel_wordfish()</p></li>
+<li><p>Argument defaults for readability.corpus() now same as readability.character(). Fixes #107.</p></li>
+<li><p>Fixed a bug causing LIWC format dictionary imports to fail if extra characters followed the closing % in the file header.</p></li>
+<li><p>Fixed a bug in applyDictionary(x, dictionary, exclusive = FALSE) when the dictionary produced no matches at all, caused by an attempt to negative index a NULL. #115</p></li>
+<li><p>Fixed #117, a bug where wordstem.tokenizedTexts() removed attributes from the object, causing a failure of dfm.tokenizedTexts().</p></li>
+<li><p>Fixed #119, a bug in selectFeatures.tokenizedTexts(x, features, selection = “remove”) that returned a NULL for a document’s tokens when no matching pattern for removal was found.</p></li>
+<li><p>Improved the behaviour of the <code>removeHyphens</code> option to <code>tokenize()</code> when <code>what = "fasterword"</code> or <code>what "fastestword"</code>.</p></li>
+<li><p>readability() now returns measures in order called, not function definition order.</p></li>
+<li><p>textmodel(x, model = “wordfish”) now removes zero-frequency documents and words prior to calling Rcpp.</p></li>
+<li><p>Fixed a bug in sample.corpus() that caused an error when no docvars existed. #128</p></li>
+</ul>
+</div>
+</div>
     <div id="quanteda-0-9-4" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-9-4" class="anchor"></a>quanteda 0.9.4</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-9-4" class="anchor"></a>quanteda 0.9.4<small> 2016-02-21 </small>
+</h1>
 <ul>
 <li><p>Added presidents’ first names to inaugCorpus</p></li>
 <li><p>Added textmodel implementation of multinomial and Bernoulli Naive Bayes.</p></li>
@@ -192,8 +346,9 @@
 </div>
 </div>
     <div id="quanteda-0-9-2" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-9-2" class="anchor"></a>quanteda 0.9.2</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-9-2" class="anchor"></a>quanteda 0.9.2<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>added new methods for similarity(), including sparse matrix computation for method = “correlation” and “cosine”. (More planned soon.) Also allows easy conversion to a matrix using as.matrix() on similarity lists.</p></li>
 <li><p>more robust implementation of LIWC-formatted dictionary file imports</p></li>
@@ -217,8 +372,9 @@
 </div>
 </div>
     <div id="quanteda-0-9-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-9-0" class="anchor"></a>quanteda 0.9.0</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-9-0" class="anchor"></a>quanteda 0.9.0<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>trim() now accepts proportions in addition to integer thresholds. Also accepts a new sparsity argument, which works like tm’s removeSparseTerms(x, sparse = ) (for those who really want to think of sparsity this way).</p></li>
 <li><p>[i] and [i, j] indexing of corpus objects is now possible, for extracting texts or docvars using convenient notation. See ?corpus Details.</p></li>
@@ -241,8 +397,9 @@
 </div>
 </div>
     <div id="quanteda-0-8-6" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-8-6" class="anchor"></a>quanteda 0.8.6</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-8-6" class="anchor"></a>quanteda 0.8.6<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>removeFeatures.dfm(x, stopwords), selectFeatures.dfm(x, features), and dfm(x, ignoredFeatures) now work on objects created with ngrams. (Any ngram containing a stopword is removed.) Performance on these functions is already good but will be improved further soon.</p></li>
 <li><p>selectFeatures(x, features = <anotherdfm>) is now possible, to produce a selection of features from x identical to those in <dfm>. Not only are only features kept in x that are in <anotherdfm>, but also fatures in <anotherdfm> not in x are added to x as padded zero counts. This functionality can also be accessed via dfm(x, keptFeatures = <anotherdfm>). This is useful when new data used in a test set needs to have identical features as a training set dfm constructed at an earlier stage.</anotherdfm></anotherdfm></anotherdfm></dfm></anotherdfm></p></li>
@@ -265,8 +422,9 @@
 </div>
 </div>
     <div id="quanteda-0-8-4" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-8-4" class="anchor"></a>quanteda 0.8.4</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-8-4" class="anchor"></a>quanteda 0.8.4<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>ngrams() rewritten to accept fully vectorized arguments for <code>n</code> and for <code>window</code>, thus implementing “skip-grams”. Separate function skipgrams() behaves in the standard “skipgram” fashion. bigrams(), deprecated since 0.7, has been removed from the namespace.</p></li>
 <li><p>corpus() no longer checks all documents for text encoding; rather, this is now based on a random sample of max()</p></li>
@@ -285,8 +443,9 @@
 </div>
 </div>
     <div id="quanteda-0-8-2" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-8-2" class="anchor"></a>quanteda 0.8.2</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-8-2" class="anchor"></a>quanteda 0.8.2<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>0.8.2-1: Changed R version dependency to 3.2.0 so that Mac binary would build on CRAN.</p></li>
 <li><p>0.8.2-1: <code>sample.corpus()</code> now samples documents from a corpus, and <code>sample.dfm()</code> samples documents or features from a dfm. <code>trim()</code> method for with <code>nsample</code> argument now calls <code>sample.dfm()</code>.</p></li>
@@ -341,8 +500,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </div>
 </div>
     <div id="quanteda-0-8-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-8-0" class="anchor"></a>quanteda 0.8.0</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-8-0" class="anchor"></a>quanteda 0.8.0<small> Unreleased </small>
+</h1>
 <div id="syntax-changes-and-workflow-streamlining" class="section level2">
 <h2 class="hasAnchor">
 <a href="#syntax-changes-and-workflow-streamlining" class="anchor"></a>Syntax changes and workflow streamlining</h2>
@@ -391,16 +551,18 @@ Code is also much simpler, based on using three new functions that are also avai
 </div>
 </div>
     <div id="quanteda-0-7-3" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-7-3" class="anchor"></a>quanteda 0.7.3</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-7-3" class="anchor"></a>quanteda 0.7.3<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>added an ntoken() method for dfm objects.</p></li>
 <li><p>fixed a bug wherein convert(anydfm, to=“tm”) created a DocumentTermMatrix, not a TermDocumentMatrix. Now correctly creates a TermDocumentMatrix. (Both worked previously in topicmodels::LDA() so many users may not notice the change.)</p></li>
 </ul>
 </div>
     <div id="quanteda-0-7-2" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-7-2" class="anchor"></a>quanteda 0.7.2</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-7-2" class="anchor"></a>quanteda 0.7.2<small> 2015-04-07 </small>
+</h1>
 <ul>
 <li><p>phrasetotokens works with dictionaries and collocations, to transform multi-word expressions into single tokens in texts or corpora</p></li>
 <li><p>dictionaries now redefined as S4 classes</p></li>
@@ -413,8 +575,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-7-1" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-7-1" class="anchor"></a>quanteda 0.7.1</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-7-1" class="anchor"></a>quanteda 0.7.1<small> Unreleased </small>
+</h1>
 <p>Many major changes to the syntax in this version.</p>
 <ul>
 <li><p>trimdfm, flatten.dictionary, the textfile functions, dictionary converters are all gone from the NAMESPACE</p></li>
@@ -428,8 +591,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-7-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-7-0" class="anchor"></a>quanteda 0.7.0</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-7-0" class="anchor"></a>quanteda 0.7.0<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>dfm now sparse by default, implemented as subclasses of the Matrix package. Option dfm(…, matrixType=“sparse”) is now the default, although matrixType=“dense” will still produce the old S3-class dfm based on a regular matrix, and all dfm methods will still work with this object.</p></li>
 <li><p>Improvements to: weight(), print() for dfms.</p></li>
@@ -437,8 +601,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-6-6" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-6-6" class="anchor"></a>quanteda 0.6.6</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-6-6" class="anchor"></a>quanteda 0.6.6<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>No more depends, all done through imports. Passes clean check. The start of our reliance more on the master branch rather than having merges from dev to master happen only once in a blue moon.</p></li>
 <li><p>bigrams in dfm() when bigrams=TRUE and ignoredFeatures=<something> now removed if any bigram contains an ignoredFeature</something></p></li>
@@ -447,8 +612,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-6-5" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-6-5" class="anchor"></a>quanteda 0.6.5</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-6-5" class="anchor"></a>quanteda 0.6.5<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>New engine for dfm now implemented as standard, using data.table and Matrix for fast, efficient (sparse) matrixes.</p></li>
 <li><p>Added trigram collocations (n=3) to collocations().</p></li>
@@ -457,8 +623,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-6-4" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-6-4" class="anchor"></a>quanteda 0.6.4</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-6-4" class="anchor"></a>quanteda 0.6.4<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>first cut at REST APIs for Twitter and Facebook</p></li>
 <li><p>some minor improvements to sentence segmentation</p></li>
@@ -468,8 +635,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-6-3" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-6-3" class="anchor"></a>quanteda 0.6.3</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-6-3" class="anchor"></a>quanteda 0.6.3<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>added textmodel_lda support, including LDA, CTM, and STM. Added a converter dfm2stmformat() between dfm and stm’s input format.</p></li>
 <li><p>as.dfm works now for data.frame objects</p></li>
@@ -477,16 +645,18 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-6-2" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-6-2" class="anchor"></a>quanteda 0.6.2</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-6-2" class="anchor"></a>quanteda 0.6.2<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>The first appearance of dfms(), to create a sparse Matrix using the Matrix package. Eventually this will become the default format for all but small dfms. Not only is this far more efficient, it is also much faster.</p></li>
 <li><p>Minor speed gains for clean() – but still much more work to be done with clean().</p></li>
 </ul>
 </div>
     <div id="quanteda-0-6-1" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-6-1" class="anchor"></a>quanteda 0.6.1</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-6-1" class="anchor"></a>quanteda 0.6.1<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>started textmodel_wordfish, textmodel_ca. textmodel_wordfish takes an mcmc argument that calls JAGS wordfish.</p></li>
 <li><p>now depends on ca, austin rather than importing them</p></li>
@@ -495,8 +665,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-6-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-6-0" class="anchor"></a>quanteda 0.6.0</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-6-0" class="anchor"></a>quanteda 0.6.0<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>Added textmodel for scaling and prediction methods, including for starters, wordscores and naivebayes class models. LIKELY TO BE BUGGY AND QUIRKY FOR A WHILE.</p></li>
 <li><p>Added smoothdfm() and weight() methods for dfms.</p></li>
@@ -504,8 +675,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-5-8" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-8" class="anchor"></a>quanteda 0.5.8</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-8" class="anchor"></a>quanteda 0.5.8<small> Unreleased </small>
+</h1>
 <div id="classification-and-scaling-methods" class="section level2">
 <h2 class="hasAnchor">
 <a href="#classification-and-scaling-methods" class="anchor"></a>Classification and scaling methods</h2>
@@ -515,8 +687,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </div>
 </div>
     <div id="quanteda-0-5-7" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-7" class="anchor"></a>quanteda 0.5.7</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-7" class="anchor"></a>quanteda 0.5.7<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>added compoundWords() to turn space-delimited phrases into single “tokens”. Works with dfm(, dictionary=) if the text has been pre-processed with compoundWords() and the dictionary joins phrases with the connector (“_“). May add this functionality to be more automatic in future versions.</p></li>
 <li><p>new keep argument for trimdfm() now takes a regular expression for which feature labels to retain. New defaults for minDoc and minCount (1 each).</p></li>
@@ -532,8 +705,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </div>
 </div>
     <div id="quanteda-0-5-6" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-6" class="anchor"></a>quanteda 0.5.6</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-6" class="anchor"></a>quanteda 0.5.6<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>added readLIWCdict() to read LIWC-formatted dictionaries</p></li>
 <li><p>fixed a “bug”/feature in readWStatDict() that eliminated wildcards (and all other punctuation marks) - now only converts to lower.</p></li>
@@ -541,8 +715,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-5-5" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-5" class="anchor"></a>quanteda 0.5.5</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-5" class="anchor"></a>quanteda 0.5.5<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>fixed broken dictionary option in dfm()</p></li>
 <li><p>fixed a bug in dfm() that was preventing clean() options from being passed through</p></li>
@@ -557,8 +732,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-5-4" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-4" class="anchor"></a>quanteda 0.5.4</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-4" class="anchor"></a>quanteda 0.5.4<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>updated corpus.directory to allow specification of the file extension mask</p></li>
 <li><p>updated docvars&lt;- and metadoc&lt;- to take the docvar names from the assigned data.frame if field is omitted.</p></li>
@@ -571,8 +747,9 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-5-3" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-3" class="anchor"></a>quanteda 0.5.3</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-3" class="anchor"></a>quanteda 0.5.3<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>added statLexdiv() to compute the lexical diversity of texts from a dfm.</p></li>
 <li><p>minor bug fixes; update to print.corpus() output messages.</p></li>
@@ -580,16 +757,18 @@ Code is also much simpler, based on using three new functions that are also avai
 </ul>
 </div>
     <div id="quanteda-0-5-2" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-2" class="anchor"></a>quanteda 0.5.2</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-2" class="anchor"></a>quanteda 0.5.2<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>Added a corpus constructor method for the VCorpus class object from the tm package.</p></li>
 <li><p>added zipfiles() to unzip a directory of text files from disk or a URL, for easy import into a corpus using corpus.directory(zipfiles())</p></li>
 </ul>
 </div>
     <div id="quanteda-0-5-1" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-1" class="anchor"></a>quanteda 0.5.1</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-1" class="anchor"></a>quanteda 0.5.1<small> Unreleased </small>
+</h1>
 <ul>
 <li><p>Fixed all the remaining issues causing warnings in R CMD CHECK, now all are fixed.<br>
 Mostly these related to documentation.</p></li>
@@ -598,8 +777,9 @@ Mostly these related to documentation.</p></li>
 </ul>
 </div>
     <div id="quanteda-0-5-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quanteda-0-5-0" class="anchor"></a>quanteda 0.5.0</h1>
+<h1 class="page-header">
+<a href="#quanteda-0-5-0" class="anchor"></a>quanteda 0.5.0<small> Unreleased </small>
+</h1>
 <div id="lots-of-new-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#lots-of-new-functions" class="anchor"></a>Lots of new functions</h2>
@@ -638,15 +818,14 @@ Mostly these related to documentation.</p></li>
 </ul>
 </div>
 </div>
-    NA
-    NA
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#quanteda-0-9-8">0.9.8</a></li>
+        <li><a href="#quanteda-0-9-6">0.9.6</a></li>
         <li><a href="#quanteda-0-9-4">0.9.4</a></li>
         <li><a href="#quanteda-0-9-2">0.9.2</a></li>
         <li><a href="#quanteda-0-9-0">0.9.0</a></li>
@@ -674,8 +853,6 @@ Mostly these related to documentation.</p></li>
         <li><a href="#quanteda-0-5-2">0.5.2</a></li>
         <li><a href="#quanteda-0-5-1">0.5.1</a></li>
         <li><a href="#quanteda-0-5-0">0.5.0</a></li>
-        <li><a href="#NA">NA</a></li>
-        <li><a href="#NA">NA</a></li>
       </ul>
     </div>
   </div>
@@ -688,11 +865,25 @@ Mostly these related to documentation.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    apiKey: '9b4ef7fd791dc6075154d3ebd7b12acf',
+    indexName: 'quanteda',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+
+
   </body>
 </html>
+
